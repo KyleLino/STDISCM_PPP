@@ -12,3 +12,7 @@ open in vscode
 [3]
 to run:
 run main.py
+
+sources:
+https://realpython.com/beautiful-soup-web-scraper-python/
+https://www.programiz.com/python-programming/writing-csv-files
