@@ -1,19 +1,20 @@
 from PIL import Image, ImageEnhance
 
 #read the image
-im = Image.open("Image_Enhancer/input_images/image_1.png")
+image = Image.open("Image_Enhancer/input_images/image_1.png")
 
-#image brightness enhancer
-enhancer = ImageEnhance.Brightness(im)
+#ENHANCERS
+brightness_enhancer = ImageEnhance.Brightness(image)
+sharpness_enhancer = ImageEnhance.Sharpness(image)
+contrast_enhancer = ImageEnhance.Contrast(image)
 
-factor = 1 #gives original image
-im_output = enhancer.enhance(factor)
-im_output.save('Image_Enhancer/output_images/original-image.png')
+#FACTORS
+brightness_factor = 1
+sharpness_factor = 1
+contrast_factor = 1
 
-factor = 0.5 #darkens the image
-im_output = enhancer.enhance(factor)
-im_output.save('Image_Enhancer/output_images/darkened-image.png')
-
-factor = 1.5 #brightens the image
-im_output = enhancer.enhance(factor)
+#ENHANCING
+im_output = brightness_enhancer.enhance(brightness_factor)
+im_output = sharpness_enhancer.enhance(sharpness_factor)
+im_output = contrast_enhancer.enhance(contrast_factor)
 im_output.save('Image_Enhancer/output_images/brightened-image.png')
