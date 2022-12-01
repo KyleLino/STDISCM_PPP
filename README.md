@@ -13,6 +13,6 @@ open in vscode
 to run:
 run main.py
 
-sources:
+sources used:
 https://realpython.com/beautiful-soup-web-scraper-python/
 https://www.programiz.com/python-programming/writing-csv-files
