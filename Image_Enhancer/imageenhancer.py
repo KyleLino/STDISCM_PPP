@@ -14,7 +14,7 @@ sharpness_factor = 1
 contrast_factor = 1
 
 #ENHANCING
-im_output = brightness_enhancer.enhance(brightness_factor)
-im_output = sharpness_enhancer.enhance(sharpness_factor)
-im_output = contrast_enhancer.enhance(contrast_factor)
-im_output.save('Image_Enhancer/output_images/brightened-image.png')
+image_output = brightness_enhancer.enhance(brightness_factor)
+image_output = sharpness_enhancer.enhance(sharpness_factor)
+image_output = contrast_enhancer.enhance(contrast_factor)
+image_output.save('Image_Enhancer/output_images/enhanced_image_2.png')
