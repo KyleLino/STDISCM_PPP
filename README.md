@@ -1,5 +1,5 @@
 # STDISCM_PPP
-Parallel Programming Project – Email Address Web Scraper 
+Parallel Programming Project
 
 [1]
 install these first (terminal/command line):
