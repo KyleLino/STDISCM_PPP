@@ -56,7 +56,7 @@ for image_file in images:
             new_frame = contrast_enhancer.enhance(contrast_factor) 
             new.append(new_frame)
 
-        new[0].save('Image_Enhancer/output_images/enhanced_'+ str(partitioned_string[len(partitioned_string) - 1]), append_images=new[1:], save_all=True, loop = 0, duration = 1)
+        new[0].save('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1]), append_images=new[1:], save_all=True, loop = 0, duration = 1)
     #png / jpeg / jpg
     else:
 
@@ -66,6 +66,6 @@ for image_file in images:
         image = sharpness_enhancer.enhance(sharpness_factor)
         contrast_enhancer = ImageEnhance.Contrast(image)
         image = contrast_enhancer.enhance(contrast_factor) 
-        image.save('Image_Enhancer/output_images/enhanced_'+ str(partitioned_string[len(partitioned_string) - 1]))
+        image.save('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1]))
 
 
