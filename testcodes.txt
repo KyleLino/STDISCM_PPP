@@ -1,0 +1,10 @@
+new_frame = new_frame.convert('RGB')
+
+from PIL import Image
+
+num_key_frames = 8
+
+with Image.open('Image_Enhancer/input_images/g1.gif') as im:
+    for i in range(im.n_frames):
+        im.seek(im.n_frames // num_key_frames * i)
+        im.save('{}.png'.format(i))
