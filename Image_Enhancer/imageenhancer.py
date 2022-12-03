@@ -25,11 +25,11 @@ x = 0
 for image_file in images:
     image = Image.open(image_file)
 
-
     x += 1 #counter
 
     #gets extension of the current image file
     partitioned_string = re.split(',|_|/', image_file)
+    #for naming convention
     extension_string = image_file.partition('.')
     print()
     print(str(extension_string))
@@ -53,7 +53,7 @@ for image_file in images:
             new_frame = contrast_enhancer.enhance(contrast_factor) 
             new.append(new_frame)
 
-        new[0].save('Image_Enhancer/output_images/enhanced_'+ str(partitioned_string[len(partitioned_string) - 1]), append_images=new[1:], save_all=True)
+        new[0].save('Image_Enhancer/output_images/enhanced_'+ str(partitioned_string[len(partitioned_string) - 1]), append_images=new[1:], save_all=True, loop = 0, duration = .01)
     #png / jpeg / jpg
     else:
 
