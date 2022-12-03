@@ -15,15 +15,18 @@ images = glob.glob("Image_Enhancer/input_images/*")
 #print(images)
 
 #FACTORS
-brightness_factor = 1.1
+brightness_factor = .5
 sharpness_factor = 2
 contrast_factor = 3
 #number of images saved
 x = 0
 
+print(str(images))
+
 #LOOPS UNTIL ALL FILES ARE ENHANCED
 for image_file in images:
     image = Image.open(image_file)
+
 
     x += 1 #counter
 
@@ -53,7 +56,7 @@ for image_file in images:
             new_frame = contrast_enhancer.enhance(contrast_factor) 
             new.append(new_frame)
 
-        new[0].save('Image_Enhancer/output_images/enhanced_'+ str(partitioned_string[len(partitioned_string) - 1]), append_images=new[1:], save_all=True, loop = 0, duration = .01)
+        new[0].save('Image_Enhancer/output_images/enhanced_'+ str(partitioned_string[len(partitioned_string) - 1]), append_images=new[1:], save_all=True, loop = 0, duration = 1)
     #png / jpeg / jpg
     else:
 
