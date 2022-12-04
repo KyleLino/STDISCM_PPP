@@ -3,6 +3,7 @@ import time
 import glob
 import re
 import multiprocessing
+import sys
 
 #number of images saved
 x = 0
@@ -34,13 +35,6 @@ def main():
     print(COUNT)
     print("HAHAHAHAAHAHAH")
 
-    #FACTORS
-    brightness_factor = .1
-    sharpness_factor = 2
-    contrast_factor = 30
-    #brightness_factor = b
-    #contrast_factor = c
-    #sharpness_factor = s
     time_limit = 5.0
 
     #print(str(images))
@@ -52,9 +46,9 @@ def main():
     #print(queue.get())
     print("HAHAHAHAAHAHAH")
 
-    #b = float(input('Enter brightness value:'))
-    #s = float(input('Enter sharpness value:'))
-    #c = float(input('Enter contrast value:'))
+    b_in = float(input('Enter brightness value:'))
+    s_in = float(input('Enter sharpness value:'))
+    c_in = float(input('Enter contrast value:'))
 
     #TXT FILE
     file_clear = open("Image_Enhancer/image_data.txt",'w')
@@ -66,7 +60,7 @@ def main():
     while time.time() - start_time < time_limit:
         #LOOPS UNTILE ALL FILES ARE ENHANCED
         for n in range(consumer_threads):
-            c=consumer(COUNT, n, queue)
+            c=consumer(COUNT, n, queue,b_in,s_in,c_in)
             c_threads_list.append(c)
             c.start()
             if time.time() - start_time >= time_limit:
@@ -74,16 +68,22 @@ def main():
         
         for c in c_threads_list:
             c.join()
+        if queue.empty():
+            break
     
     print('done')
+    file_object_read = open('Image_Enhancer/image_data.txt', 'r')
+    counter = len(file_object_read.readlines())
 
 
 
     #TEXT FILE
-    file_object.write('\nIMAGES ENHANCED:'+ str(x)+ '\n')
+    file_object = open('Image_Enhancer/image_data.txt', 'a')
+    file_object.write('\nIMAGES ENHANCED:'+ str(counter)+ '\n')
     file_object.close()
+    exit()
 
-def enhance(image_file, id):
+def enhance(image_file, id,b,s,c):
         
         image = Image.open(image_file)
         file_object = open('Image_Enhancer/image_data.txt', 'a')
@@ -108,11 +108,11 @@ def enhance(image_file, id):
                 #enhance part
                 #new_frame = enhance_image(new_frame)
                 brightness_enhancer = ImageEnhance.Brightness(new_frame)
-                new_frame = brightness_enhancer.enhance(1.0)
+                new_frame = brightness_enhancer.enhance(float(b))
                 sharpness_enhancer = ImageEnhance.Sharpness(new_frame)
-                new_frame = sharpness_enhancer.enhance(1.0)
+                new_frame = sharpness_enhancer.enhance(float(s))
                 contrast_enhancer = ImageEnhance.Contrast(new_frame)
-                new_frame = contrast_enhancer.enhance(1.0) 
+                new_frame = contrast_enhancer.enhance(float(c)) 
                 new.append(new_frame)
 
             #save part
@@ -123,28 +123,33 @@ def enhance(image_file, id):
         else:
             #enhance part
             brightness_enhancer = ImageEnhance.Brightness(image)
-            image = brightness_enhancer.enhance(1.0)
+            image = brightness_enhancer.enhance(float(b))
             sharpness_enhancer = ImageEnhance.Sharpness(image)
-            image = sharpness_enhancer.enhance(1.0)
+            image = sharpness_enhancer.enhance(float(s))
             contrast_enhancer = ImageEnhance.Contrast(image)
-            image = contrast_enhancer.enhance(1.0) 
+            image = contrast_enhancer.enhance(float(c)) 
             #save part
             image.save('Image_Enhancer/output_images/enhanced_'+ str(id)+ '_' + str(partitioned_string[len(partitioned_string) - 1]))
             file_object.write('Image_Enhancer/output_images/enhanced_'+ str(id)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
 
 class consumer (multiprocessing.Process):
-    def __init__(self, count, thread_ID, queue):
+    def __init__(self, count, thread_ID, queue,b,s,c):
         multiprocessing.Process.__init__(self)
         self.counter=int((count/consumer_threads))
         self.image_file=0
         self.ID=thread_ID
         self.queue=queue
+        self.b = b
+        self.s = s
+        self.c = c
     def run(self):
         print("Consumer %i is waiting \n"%(self.ID))
         for i in range(self.counter):
             self.image_file=self.queue.get()
-            enhance(self.image_file, self.ID)
+            print(self.image_file)
+            enhance(self.image_file, self.ID,self.b,self.s,self.c)
         
 
 if __name__=="__main__":
     main()
+    
