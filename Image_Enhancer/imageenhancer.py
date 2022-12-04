@@ -75,9 +75,9 @@ image_files = glob.glob(image_loc)
 #image_files = glob.glob("Image_Enhancer/input_images/*")
 
 #FACTORS
-brightness_factor = .1
-sharpness_factor = 2
-contrast_factor = 30
+#brightness_factor = .1
+#sharpness_factor = 2
+#contrast_factor = 30
 brightness_factor = b
 contrast_factor = c
 sharpness_factor = s
