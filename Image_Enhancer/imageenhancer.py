@@ -15,12 +15,10 @@ def enhance_image(image):
         image = contrast_enhancer.enhance(contrast_factor) 
         return image
 
-#all image directories
-images = glob.glob("Image_Enhancer/input_images/*")
-
 #creates 900 image files from the 3 original images files 
 #images = images * 300
 
+#INPUTS
 #"Image_Enhancer/input_images/*"
 #image_loc = str(input('Enter image location:'))
 #"Image_Enhancer/output_images"
@@ -30,10 +28,13 @@ images = glob.glob("Image_Enhancer/input_images/*")
 #c = int(input('Enter contrast value:'))
 #print(images)
 
+#all image directories
+images = glob.glob("Image_Enhancer/input_images/*")
+
 #FACTORS
 brightness_factor = .5
 sharpness_factor = 2
-contrast_factor = 3
+contrast_factor = 30
 #brightness_factor = b
 #contrast_factor = c
 #sharpness_factor = s
