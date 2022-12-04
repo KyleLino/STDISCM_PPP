@@ -40,6 +40,10 @@ contrast_factor = 3
 
 #print(str(images))
 
+#TXT FILE
+file_clear = open("Image_Enhancer/image_data.txt",'w')
+file_object = open('Image_Enhancer/image_data.txt', 'a')
+
 #LOOPS UNTIL ALL FILES ARE ENHANCED
 for image_file in images:
     x += 1 #counter
@@ -67,11 +71,14 @@ for image_file in images:
 
         #save part
         new[0].save('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1]), append_images=new[1:], save_all=True, loop = 0, duration = 1)
+        file_object.write('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
     #PNG/JPG/JPEG
     else:
         #enhance part
         image = enhance_image(image)
         #save part
         image.save('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1]))
+        file_object.write('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
 
-
+file_object.write('IMAGES ENHANCED:'+ str(x)+ '\n')
+file_object.close()
