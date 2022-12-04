@@ -2,6 +2,9 @@ from PIL import Image, ImageEnhance
 import glob
 import re
 
+#number of images saved
+x = 0
+
 #enhance function
 def enhance_image(image):
         brightness_enhancer = ImageEnhance.Brightness(image)
@@ -18,25 +21,30 @@ images = glob.glob("Image_Enhancer/input_images/*")
 #creates 900 image files from the 3 original images files 
 #images = images * 300
 
+#"Image_Enhancer/input_images/*"
+#image_loc = str(input('Enter image location:'))
+#"Image_Enhancer/output_images"
+#enhanced_image_loc = str(input('Enter enhanced image location:'))
 #b = int(input('Enter brightness value:'))
 #s = int(input('Enter sharpness value:'))
 #c = int(input('Enter contrast value:'))
 #print(images)
+
 #FACTORS
 brightness_factor = .5
 sharpness_factor = 2
 contrast_factor = 3
-
-#number of images saved
-x = 0
+#brightness_factor = b
+#contrast_factor = c
+#sharpness_factor = s
 
 #print(str(images))
 
 #LOOPS UNTIL ALL FILES ARE ENHANCED
 for image_file in images:
-    image = Image.open(image_file)
     x += 1 #counter
-
+    image = Image.open(image_file)
+    
     #gets extension of the current image file
     partitioned_string = re.split(',|_|/', image_file)
     #for naming convention
@@ -44,7 +52,6 @@ for image_file in images:
     print()
     print(str(extension_string))
     
-
     #GIF
     if str(extension_string[len(extension_string) - 1]) == 'gif':
         new = []
