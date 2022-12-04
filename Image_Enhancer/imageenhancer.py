@@ -29,10 +29,10 @@ def enhance_image(image):
 #print(images)
 
 #all image directories
-images = glob.glob("Image_Enhancer/input_images/*")
+image_files = glob.glob("Image_Enhancer/input_images/*")
 
 #FACTORS
-brightness_factor = .5
+brightness_factor = .1
 sharpness_factor = 2
 contrast_factor = 30
 #brightness_factor = b
@@ -46,7 +46,7 @@ file_clear = open("Image_Enhancer/image_data.txt",'w')
 file_object = open('Image_Enhancer/image_data.txt', 'a')
 
 #LOOPS UNTIL ALL FILES ARE ENHANCED
-for image_file in images:
+for image_file in image_files:
     x += 1 #counter
     image = Image.open(image_file)
     
