@@ -15,6 +15,44 @@ def enhance_image(image):
         image = contrast_enhancer.enhance(contrast_factor) 
         return image
 
+def enhance(image_file):
+        
+        image = Image.open(image_file)
+        
+        #gets extension of the current image file
+        partitioned_string = re.split(',|_|/', image_file)
+        #for naming convention
+        extension_string = image_file.partition('.')
+        print()
+        print(str(extension_string))
+        
+        #GIF
+        if str(extension_string[len(extension_string) - 1]) == 'gif':
+            new = []
+        
+            #enhances per frame/image of gif
+            for frame_num in range(image.n_frames):
+                image.seek(frame_num)
+                new_frame = Image.new('RGB', image.size)
+                new_frame.paste(image)
+                new_frame = new_frame.convert(mode='RGB')
+                #enhance part
+                new_frame = enhance_image(new_frame)
+                new.append(new_frame)
+
+            #save part
+            new[0].save('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1]), append_images=new[1:], save_all=True, loop = 0, duration = 1)
+            file_object.write('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
+    
+    #PNG/JPG/JPEG
+        else:
+            #enhance part
+            image = enhance_image(image)
+            #save part
+            image.save('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1]))
+            file_object.write('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
+
+
 #creates 900 image files from the 3 original images files 
 #images = images * 300
 
@@ -48,38 +86,11 @@ file_object = open('Image_Enhancer/image_data.txt', 'a')
 #LOOPS UNTIL ALL FILES ARE ENHANCED
 for image_file in image_files:
     x += 1 #counter
-    image = Image.open(image_file)
-    
-    #gets extension of the current image file
-    partitioned_string = re.split(',|_|/', image_file)
-    #for naming convention
-    extension_string = image_file.partition('.')
-    print()
-    print(str(extension_string))
-    
-    #GIF
-    if str(extension_string[len(extension_string) - 1]) == 'gif':
-        new = []
-    
-        for frame_num in range(image.n_frames):
-            image.seek(frame_num)
-            new_frame = Image.new('RGB', image.size)
-            new_frame.paste(image)
-            new_frame = new_frame.convert(mode='RGB')
-            #enhance part
-            new_frame = enhance_image(new_frame)
-            new.append(new_frame)
+    enhance(image_file)
 
-        #save part
-        new[0].save('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1]), append_images=new[1:], save_all=True, loop = 0, duration = 1)
-        file_object.write('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
-    #PNG/JPG/JPEG
-    else:
-        #enhance part
-        image = enhance_image(image)
-        #save part
-        image.save('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1]))
-        file_object.write('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
 
+
+
+#TEXT FILE
 file_object.write('\nIMAGES ENHANCED:'+ str(x)+ '\n')
 file_object.close()
