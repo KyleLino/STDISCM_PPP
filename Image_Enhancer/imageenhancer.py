@@ -4,8 +4,10 @@ import re
 
 #number of images saved
 x = 0
+#all image directories
+image_files = glob.glob("Image_Enhancer/input_images/*")
 
-#enhance function
+#enhance functions
 def enhance_image(image):
         brightness_enhancer = ImageEnhance.Brightness(image)
         image = brightness_enhancer.enhance(brightness_factor)
@@ -66,9 +68,6 @@ def enhance(image_file):
 #c = int(input('Enter contrast value:'))
 #print(images)
 
-#all image directories
-image_files = glob.glob("Image_Enhancer/input_images/*")
-
 #FACTORS
 brightness_factor = .1
 sharpness_factor = 2
@@ -87,9 +86,6 @@ file_object = open('Image_Enhancer/image_data.txt', 'a')
 for image_file in image_files:
     x += 1 #counter
     enhance(image_file)
-
-
-
 
 #TEXT FILE
 file_object.write('\nIMAGES ENHANCED:'+ str(x)+ '\n')
