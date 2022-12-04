@@ -80,5 +80,5 @@ for image_file in images:
         image.save('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1]))
         file_object.write('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
 
-file_object.write('IMAGES ENHANCED:'+ str(x)+ '\n')
+file_object.write('\nIMAGES ENHANCED:'+ str(x)+ '\n')
 file_object.close()

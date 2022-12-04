@@ -4,4 +4,5 @@ Image_Enhancer/output_images/enhanced_3_image3.gif
 Image_Enhancer/output_images/enhanced_4_image4.jpeg
 Image_Enhancer/output_images/enhanced_5_image5.png
 Image_Enhancer/output_images/enhanced_6_image2.png
+
 IMAGES ENHANCED:6
