@@ -4,5 +4,14 @@ Image_Enhancer/output_images/enhanced_3_image3.gif
 Image_Enhancer/output_images/enhanced_4_image4.jpeg
 Image_Enhancer/output_images/enhanced_5_image5.png
 Image_Enhancer/output_images/enhanced_6_image2.png
+Image_Enhancer/output_images/enhanced_7_image1.jpeg
+Image_Enhancer/output_images/enhanced_8_image6.gif
+Image_Enhancer/output_images/enhanced_9_image3.gif
+Image_Enhancer/output_images/enhanced_10_image4.jpeg
+Image_Enhancer/output_images/enhanced_11_image5.png
+Image_Enhancer/output_images/enhanced_12_image2.png
+Image_Enhancer/output_images/enhanced_13_image1.jpeg
+Image_Enhancer/output_images/enhanced_14_image6.gif
+Image_Enhancer/output_images/enhanced_15_image3.gif
 
-IMAGES ENHANCED:6
+IMAGES ENHANCED:15
