@@ -4,8 +4,7 @@ import re
 
 #number of images saved
 x = 0
-#all image directories
-image_files = glob.glob("Image_Enhancer/input_images/*")
+
 
 #enhance functions
 def enhance_image(image):
@@ -17,7 +16,7 @@ def enhance_image(image):
         image = contrast_enhancer.enhance(contrast_factor) 
         return image
 
-def enhance(image_file):
+def enhance(image_file, enhanced_image_loc):
         
         image = Image.open(image_file)
         
@@ -44,7 +43,7 @@ def enhance(image_file):
 
             #save part
             new[0].save('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1]), append_images=new[1:], save_all=True, loop = 0, duration = 1)
-            file_object.write('Image_Enhancer/output_images/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
+            file_object.write(str(enhanced_image_loc)+'/enhanced_'+ str(x)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
     
     #PNG/JPG/JPEG
         else:
@@ -59,22 +58,29 @@ def enhance(image_file):
 #images = images * 300
 
 #INPUTS
+#use this
 #"Image_Enhancer/input_images/*"
-#image_loc = str(input('Enter image location:'))
+image_loc = str(input('Enter image location:'))
+#use this
 #"Image_Enhancer/output_images"
-#enhanced_image_loc = str(input('Enter enhanced image location:'))
-#b = int(input('Enter brightness value:'))
-#s = int(input('Enter sharpness value:'))
-#c = int(input('Enter contrast value:'))
+enhanced_image_loc = str(input('Enter enhanced image location:'))
+# 0 - inf
+b = float(input('Enter brightness value:'))
+s = float(input('Enter sharpness value:'))
+c = float(input('Enter contrast value:'))
 #print(images)
+
+#all image directories
+image_files = glob.glob(image_loc)
+#image_files = glob.glob("Image_Enhancer/input_images/*")
 
 #FACTORS
 brightness_factor = .1
 sharpness_factor = 2
 contrast_factor = 30
-#brightness_factor = b
-#contrast_factor = c
-#sharpness_factor = s
+brightness_factor = b
+contrast_factor = c
+sharpness_factor = s
 
 #print(str(images))
 
@@ -85,7 +91,7 @@ file_object = open('Image_Enhancer/image_data.txt', 'a')
 #LOOPS UNTIL ALL FILES ARE ENHANCED
 for image_file in image_files:
     x += 1 #counter
-    enhance(image_file)
+    enhance(image_file, enhanced_image_loc)
 
 #TEXT FILE
 file_object.write('\nIMAGES ENHANCED:'+ str(x)+ '\n')
