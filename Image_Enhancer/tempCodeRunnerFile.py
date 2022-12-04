@@ -1,3 +1,4 @@
-    brightness_factor = .1
-    sharpness_factor = 2
-    contrast_factor = 30
+ #gets extension of the current image file
+        partitioned_string = re.split(',|_|/', image_file)
+        #for naming convention
+        extension_string = image_file.partition('.')
