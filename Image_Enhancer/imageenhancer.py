@@ -5,7 +5,6 @@ import re
 import multiprocessing
 import sys
 
-
 #enhance functions
 def main():
     #creates 900 image files from the 3 original images files 
@@ -23,43 +22,39 @@ def main():
     #all image directories
     #image_files = glob.glob(image_loc)
     image_files = glob.glob("Image_Enhancer/input_images/*")
+    image_files = image_files * 100
 
     queue=multiprocessing.Queue()
     c_threads_list=[]
     COUNT = len(image_files)
-    print("HAHAHAHAAHAHAH")
-    print(COUNT)
-    print("HAHAHAHAAHAHAH")
+    print("COUNT of images" + str(COUNT))
 
-    time_limit = 5.0
+    time_limit = 15.0
 
     #print(str(images))
 
     for image_file in image_files:
         queue.put(image_file)
 
-    print("HAHAHAHAAHAHAH")
-    #print(queue.get())
-    print("HAHAHAHAAHAHAH")
-
     b_in = float(input('Enter brightness value:'))
     s_in = float(input('Enter sharpness value:'))
     c_in = float(input('Enter contrast value:'))
+    time_in = int(input('enter time in mins:'))
     enhancer_threads = int(input('enter no. of threads:'))
+
+    time_in = time_in * 60
+    time_limit = time_in
     
-
-
     #TXT FILE
     file_clear = open("Image_Enhancer/image_data.txt",'w')
     file_object = open('Image_Enhancer/image_data.txt', 'a')
 
     #LOOPS UNTIL TIME IS UP
     start_time = time.time()
-    #print(time.time() - start_time)
     while time.time() - start_time < time_limit:
         #LOOPS UNTILE ALL FILES ARE ENHANCED
         for n in range(enhancer_threads):
-            c=consumer(COUNT, n, queue,b_in,s_in,c_in,enhancer_threads)
+            c=consumer(COUNT, n, queue,b_in,s_in,c_in,enhancer_threads,start_time,time_limit)
             c_threads_list.append(c)
             c.start()
             if time.time() - start_time >= time_limit:
@@ -129,7 +124,7 @@ def enhance(image_file, id,b,s,c):
             file_object.write('Image_Enhancer/output_images/enhanced_'+ str(id)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
 
 class consumer (multiprocessing.Process):
-    def __init__(self, count, thread_ID, queue,b,s,c,n_threads):
+    def __init__(self, count, thread_ID, queue,b,s,c,n_threads, s_time, t_limit):
         multiprocessing.Process.__init__(self)
         self.counter=int((count/n_threads))
         self.image_file=0
@@ -138,6 +133,8 @@ class consumer (multiprocessing.Process):
         self.b = b
         self.s = s
         self.c = c
+        self.start_time = s_time
+        self.time_limit = t_limit
     def run(self):
         print("Consumer %i is waiting \n"%(self.ID))
         for i in range(self.counter):
@@ -146,6 +143,8 @@ class consumer (multiprocessing.Process):
             self.image_file=self.queue.get()
             print(self.image_file)
             enhance(self.image_file, self.ID,self.b,self.s,self.c)
+            if time.time() - self.start_time >= self.time_limit:
+                break
         
 
 if __name__=="__main__":
