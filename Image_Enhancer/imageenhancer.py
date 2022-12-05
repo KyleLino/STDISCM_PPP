@@ -13,16 +13,16 @@ def main():
     #INPUTS
     #use this
     #"Image_Enhancer/input_images/*"
-    #image_loc = str(input('Enter image location:'))
+    image_loc = str(input('Enter image location:'))
     #use this
     #"Image_Enhancer/output_images"
-    #enhanced_image_loc = str(input('Enter enhanced image location:'))
+    enhanced_image_loc = str(input('Enter enhanced image location:'))
     #print(images)
 
     #all image directories
-    #image_files = glob.glob(image_loc)
-    image_files = glob.glob("Image_Enhancer/input_images/*")
-    image_files = image_files * 100
+    image_files = glob.glob(image_loc)
+    #image_files = glob.glob("Image_Enhancer/input_images/*")
+    #image_files = image_files * 100
 
     queue=multiprocessing.Queue()
     c_threads_list=[]
@@ -51,10 +51,10 @@ def main():
 
     #LOOPS UNTIL TIME IS UP
     start_time = time.time()
-    while time.time() - start_time < time_limit:
+    while time.time() - start_time < time_limit and queue.empty() == False:
         #LOOPS UNTILE ALL FILES ARE ENHANCED
         for n in range(enhancer_threads):
-            c=consumer(COUNT, n, queue,b_in,s_in,c_in,enhancer_threads,start_time,time_limit)
+            c=consumer(COUNT, n, queue,b_in,s_in,c_in,enhancer_threads,start_time,time_limit, enhanced_image_loc)
             c_threads_list.append(c)
             c.start()
             if time.time() - start_time >= time_limit:
@@ -74,7 +74,7 @@ def main():
     file_object.close()
     exit()
 
-def enhance(image_file, id,b,s,c):
+def enhance(image_file, id,b,s,c,e_image_loc):
         
         image = Image.open(image_file)
         file_object = open('Image_Enhancer/image_data.txt', 'a')
@@ -107,8 +107,8 @@ def enhance(image_file, id,b,s,c):
                 new.append(new_frame)
 
             #save part
-            new[0].save('Image_Enhancer/output_images/enhanced_'+ str(id)+ '_' + str(partitioned_string[len(partitioned_string) - 1]), append_images=new[1:], save_all=True, loop = 0, duration = 1)
-            file_object.write('Image_Enhancer/output_images/enhanced_'+ str(id)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
+            new[0].save(str(e_image_loc)+'/enhanced_'+ str(id)+ '_' + str(partitioned_string[len(partitioned_string) - 1]), append_images=new[1:], save_all=True, loop = 0, duration = 1)
+            file_object.write(str(e_image_loc)+'/enhanced_'+ str(id)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
     
     #PNG/JPG/JPEG
         else:
@@ -120,11 +120,11 @@ def enhance(image_file, id,b,s,c):
             contrast_enhancer = ImageEnhance.Contrast(image)
             image = contrast_enhancer.enhance(float(c)) 
             #save part
-            image.save('Image_Enhancer/output_images/enhanced_'+ str(id)+ '_' + str(partitioned_string[len(partitioned_string) - 1]))
-            file_object.write('Image_Enhancer/output_images/enhanced_'+ str(id)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
+            image.save(str(e_image_loc)+'/enhanced_'+ str(id)+ '_' + str(partitioned_string[len(partitioned_string) - 1]))
+            file_object.write(str(e_image_loc)+'/enhanced_'+ str(id)+ '_' + str(partitioned_string[len(partitioned_string) - 1] + '\n'))
 
 class consumer (multiprocessing.Process):
-    def __init__(self, count, thread_ID, queue,b,s,c,n_threads, s_time, t_limit):
+    def __init__(self, count, thread_ID, queue,b,s,c,n_threads, s_time, t_limit, e_image_loc):
         multiprocessing.Process.__init__(self)
         self.counter=int((count/n_threads))
         self.image_file=0
@@ -135,6 +135,7 @@ class consumer (multiprocessing.Process):
         self.c = c
         self.start_time = s_time
         self.time_limit = t_limit
+        self.enhanced_image_loc = e_image_loc
     def run(self):
         print("Consumer %i is waiting \n"%(self.ID))
         for i in range(self.counter):
@@ -142,7 +143,7 @@ class consumer (multiprocessing.Process):
                 break
             self.image_file=self.queue.get()
             print(self.image_file)
-            enhance(self.image_file, self.ID,self.b,self.s,self.c)
+            enhance(self.image_file, self.ID,self.b,self.s,self.c, self.enhanced_image_loc)
             if time.time() - self.start_time >= self.time_limit:
                 break
         
