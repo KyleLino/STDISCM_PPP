@@ -80,7 +80,7 @@ def enhance(image_file, id,b,s,c,e_image_loc):
         file_object = open('Image_Enhancer/image_data.txt', 'a')
         
         #gets extension of the current image file
-        partitioned_string = re.split(',|_|/', image_file)
+        partitioned_string = re.split(r',|_|/|\\', image_file)
         #for naming convention
         extension_string = image_file.partition('.')
         #print()
