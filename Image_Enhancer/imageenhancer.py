@@ -7,8 +7,6 @@ import sys
 
 #enhance functions
 def main():
-    #creates 900 image files from the 3 original images files 
-    #images = images * 300
 
     #INPUTS
     #use this
@@ -17,17 +15,18 @@ def main():
     #use this
     #"Image_Enhancer/output_images"
     enhanced_image_loc = str(input('Enter enhanced image location:'))
-    #print(images)
-
+    
     #all image directories
     image_files = glob.glob(image_loc)
+
     #image_files = glob.glob("Image_Enhancer/input_images/*")
+    #to multiply images
     #image_files = image_files * 100
 
     queue=multiprocessing.Queue()
     c_threads_list=[]
     COUNT = len(image_files)
-    print("COUNT of images" + str(COUNT))
+    print("COUNT of images: " + str(COUNT))
 
     time_limit = 15.0
 
@@ -64,7 +63,7 @@ def main():
             c.join()
         
     
-    print('done')
+    print('\n\nDONE ENHANCING\n')
     file_object_read = open('Image_Enhancer/image_data.txt', 'r')
     counter = len(file_object_read.readlines())
 
@@ -83,8 +82,8 @@ def enhance(image_file, id,b,s,c,e_image_loc):
         partitioned_string = re.split(',|_|/', image_file)
         #for naming convention
         extension_string = image_file.partition('.')
-        print()
-        print(str(extension_string))
+        #print()
+        #print(str(extension_string))
         
         #GIF
         if str(extension_string[len(extension_string) - 1]) == 'gif':
@@ -137,12 +136,12 @@ class consumer (multiprocessing.Process):
         self.time_limit = t_limit
         self.enhanced_image_loc = e_image_loc
     def run(self):
-        print("Consumer %i is waiting \n"%(self.ID))
+        #print("Consumer %i is waiting \n"%(self.ID))
         for i in range(self.counter):
             if self.queue.empty():
                 break
             self.image_file=self.queue.get()
-            print(self.image_file)
+            #print(self.image_file)
             enhance(self.image_file, self.ID,self.b,self.s,self.c, self.enhanced_image_loc)
             if time.time() - self.start_time >= self.time_limit:
                 break
