@@ -2,7 +2,37 @@ Image_Enhancer/output_images/enhanced_0_image1.jpeg
 Image_Enhancer/output_images/enhanced_1_image6.gif
 Image_Enhancer/output_images/enhanced_1_image4.jpeg
 Image_Enhancer/output_images/enhanced_1_image5.png
+Image_Enhancer/output_images/enhanced_1_image2.png
+Image_Enhancer/output_images/enhanced_1_image1.jpeg
+Image_Enhancer/output_images/enhanced_1_image6.gif
 Image_Enhancer/output_images/enhanced_0_image3.gif
+Image_Enhancer/output_images/enhanced_0_image4.jpeg
+Image_Enhancer/output_images/enhanced_0_image5.png
 Image_Enhancer/output_images/enhanced_0_image2.png
+Image_Enhancer/output_images/enhanced_0_image1.jpeg
+Image_Enhancer/output_images/enhanced_0_image6.gif
+Image_Enhancer/output_images/enhanced_1_image3.gif
+Image_Enhancer/output_images/enhanced_1_image4.jpeg
+Image_Enhancer/output_images/enhanced_1_image5.png
+Image_Enhancer/output_images/enhanced_1_image2.png
+Image_Enhancer/output_images/enhanced_1_image1.jpeg
+Image_Enhancer/output_images/enhanced_1_image6.gif
+Image_Enhancer/output_images/enhanced_0_image3.gif
+Image_Enhancer/output_images/enhanced_0_image4.jpeg
+Image_Enhancer/output_images/enhanced_0_image5.png
+Image_Enhancer/output_images/enhanced_0_image2.png
+Image_Enhancer/output_images/enhanced_0_image1.jpeg
+Image_Enhancer/output_images/enhanced_0_image6.gif
+Image_Enhancer/output_images/enhanced_1_image3.gif
+Image_Enhancer/output_images/enhanced_1_image4.jpeg
+Image_Enhancer/output_images/enhanced_1_image5.png
+Image_Enhancer/output_images/enhanced_1_image2.png
+Image_Enhancer/output_images/enhanced_1_image1.jpeg
+Image_Enhancer/output_images/enhanced_1_image6.gif
+Image_Enhancer/output_images/enhanced_0_image3.gif
+Image_Enhancer/output_images/enhanced_0_image4.jpeg
+Image_Enhancer/output_images/enhanced_0_image5.png
+Image_Enhancer/output_images/enhanced_1_image3.gif
 
-IMAGES ENHANCED:6
+IMAGES ENHANCED:35
+TIME:11.38738489151001

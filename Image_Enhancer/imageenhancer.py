@@ -18,8 +18,8 @@ def main():
     
     #all image directories
     image_files = glob.glob(image_loc)
-
     #image_files = glob.glob("Image_Enhancer/input_images/*")
+
     #to multiply images
     #image_files = image_files * 100
 
@@ -28,7 +28,7 @@ def main():
     COUNT = len(image_files)
     print("COUNT of images: " + str(COUNT))
 
-    time_limit = 15.0
+    time_limit = 10.0
 
     #print(str(images))
 
@@ -62,14 +62,15 @@ def main():
         for c in c_threads_list:
             c.join()
         
-    
-    print('\n\nDONE ENHANCING\n')
+    time_lap =  str(time.time() - start_time)
+    print('\n\nDONE ENHANCING in '+ time_lap +'\n')
     file_object_read = open('Image_Enhancer/image_data.txt', 'r')
     counter = len(file_object_read.readlines())
 
     #TEXT FILE
     file_object = open('Image_Enhancer/image_data.txt', 'a')
     file_object.write('\nIMAGES ENHANCED:'+ str(counter)+ '\n')
+    file_object.write('TIME:'+ time_lap + '\n')
     file_object.close()
     exit()
 
